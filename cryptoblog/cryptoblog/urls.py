@@ -17,9 +17,15 @@ from django.contrib import admin
 from django.urls import path,re_path,include
 from blog import urls as blog_urls
 from django.views.generic import RedirectView
+from news import urls as news_urls
+from user import urls as user_urls
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path(r'^$',RedirectView.as_view(pattern_name='post_list',permanent=False)),
     re_path(r'^blog/',include(blog_urls)),
+    re_path(r'^news/',include(news_urls)),
+    re_path(r'^user/',include(user_urls,namespace='dj-auth')),
 
 ]
