@@ -3,6 +3,9 @@ from .models import Post,Answer
 from .forms import PostFrom,CommentForm
 from django.views.generic import View
 from django.core.paginator import Paginator,EmptyPage,PageNotAnInteger
+from django.contrib.auth.decorators import login_required,permission_required
+from django.utils.decorators import method_decorator
+from user.decorators import class_login_required,class_permission_required
 
 
 class PostList(View):
@@ -78,13 +81,16 @@ class PostDetails(View):
 
 
 
-
+@class_permission_required('blog.add_post')
 class PostCreate(View):
     '''Class to create views for creating objects'''
 
     model=Post
     form_class=PostFrom
     template_name='blog/post_create.html'
+
+
+
 
     def get(self,request):
         return render(request,self.template_name,{'form':self.form_class()})
@@ -93,33 +99,16 @@ class PostCreate(View):
         bound_form=self.form_class(request.POST)
         if bound_form.is_valid():
             new_post=bound_form.save()
-            return redirect('post_list')
+            return redirect(new_post.get_absolute_url())
         else:
             return render(request,self.template_name,{'form':bound_form})
 
 
 
-class CommentCreate(View):
-    '''Class to create a view for creating answer objects'''
 
-    model=Answer
-    form_class=CommentForm
-    template_name='blog/post_details.html'
 
-    def get(self,request,pk):
-        post=get_object_or_404(Post,pk=pk)
-        return render(request,self.template_name,{'form':self.form_class()})
 
-    def post(self,request,pk):
-        post=get_object_or_404(Post,pk=pk)
-        bound_form=self.form_class(request.POST)
-        if bound_form.is_valid():
-            new_comment=bound_form.save(commit=False)
-            new_comment.post=post
-            new_comment.save()
-            return redirect(post.get_absolute_url())
-        else:
-            return render(request,self.template_name,{'form':bound_form})
+
 
 
 
