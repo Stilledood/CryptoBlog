@@ -1,0 +1,17 @@
+{% extends parent_template|default:'news/base_news.html' %}
+{% block content %}
+<div class="card mb-4">
+
+    <div class="card-body">
+        <div class="small text-muted">{{news.date_added|default:'F jS, Y'}}</div>
+        <h2 class="card-title">{{news.title|title}}</h2>
+        <p class="card-text">{{news.body}}</p>
+
+    </div>
+</div>
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="#">Category:  </a></li>
+  <li class="breadcrumb-item"><a href="#">Date Posted: {{news.date_added|default:'F jS, Y'}}</a></li>
+
+</ol>
+{% endblock content %}
