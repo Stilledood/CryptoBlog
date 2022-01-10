@@ -1,0 +1,19 @@
+{% extends parent_template|default:'user/base_user.html' %}
+
+{% block content %}
+<div class="card mb-4">
+
+<div class="card-body">
+    <div class="small text-muted">Disable your account,this acction can not be undone.Are you sure?</div>
+    <br>
+    <br>
+    <form action="{% url 'dj-auth:disable_account' %}"
+          method="post">
+        {% csrf_token %}
+        <button type="submit">Yes</button>
+    </form>
+    <button class="btn"><a href="{% url 'post_list' %}">No</a> </button>
+
+    </div>
+</div>
+{% endblock content %}

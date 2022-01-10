@@ -1,0 +1,5 @@
+{% autoescape off %}
+Hi ,{{user.username}}
+Please click on the link bellow to acctivate your account on CoinBlog:
+http://{{domain}}{% url 'dj-auth:activate_account' uidb64=uid token=token %}
+{% endautoescape %}
