@@ -19,6 +19,8 @@ from blog import urls as blog_urls
 from django.views.generic import RedirectView
 from news import urls as news_urls
 from user import urls as user_urls
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -28,4 +30,7 @@ urlpatterns = [
     re_path(r'^news/',include(news_urls)),
     re_path(r'^user/',include(user_urls,namespace='dj-auth')),
 
-]
+]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+
+

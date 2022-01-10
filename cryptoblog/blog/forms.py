@@ -8,7 +8,7 @@ class PostFrom(forms.ModelForm):
 
     class Meta:
         model=Post
-        fields=['title','body','tag']
+        fields=['title','body','tag','image']
 
     def clean_title(self):
         title=self.cleaned_data['title'].lower()

@@ -1,9 +1,10 @@
 {% extends parent_template|default:'blog/blog_base.html' %}
+{% load crispy_forms_tags %}
 {% block content %}
 <form action="{% url 'post_create' %}" enctype="multipart/form-data"
       method="post">
     {% csrf_token %}
-    {{form.as_p}}
+    {{form|crispy}}
     <button type="submit" class="btn btn-outline-dark">Add</button>
 </form>
 {% endblock content %}

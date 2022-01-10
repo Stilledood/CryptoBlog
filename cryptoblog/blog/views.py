@@ -17,7 +17,7 @@ class PostList(View):
     paginated_by=2
 
     def get(self,request):
-        post_list=self.model.objects.all()
+        post_list=self.model.objects.all().order_by('-date_added')
         paginator=Paginator(post_list,self.paginated_by)
         page_number=request.GET.get(self.page_kwargs)
         try:
@@ -33,7 +33,7 @@ class PostList(View):
             previous_page_url=None
 
         if page.has_next():
-            next_page_url="?{pkw}={n}".formst(pkw=self.page_kwargs,n=page.next_page_number())
+            next_page_url="?{pkw}={n}".format(pkw=self.page_kwargs,n=page.next_page_number())
         else:
             next_page_url=None
 
@@ -96,7 +96,7 @@ class PostCreate(View):
         return render(request,self.template_name,{'form':self.form_class()})
 
     def post(self,request):
-        bound_form=self.form_class(request.POST)
+        bound_form=self.form_class(request.POST,request.FILES)
         if bound_form.is_valid():
             new_post=bound_form.save()
             return redirect(new_post.get_absolute_url())

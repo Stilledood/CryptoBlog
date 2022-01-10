@@ -11,11 +11,12 @@ class Post(models.Model):
     body=models.TextField()
     date_added=models.DateField(auto_now_add=True)
     tag=TaggableManager()
+    image=models.ImageField(upload_to='blog_images')
 
 
 
     class Meta:
-        ordering=('-date_added',)
+        ordering=['-date_added',]
         get_latest_by='date_added'
 
 
