@@ -2,7 +2,7 @@ from django.urls import re_path,reverse_lazy,include,path
 from django.contrib.auth import views as auth_views
 from django.views.generic import RedirectView
 from django.contrib.auth.forms import AuthenticationForm
-from .views import DisableAccount,SignUpView,ActivateAccount
+from .views import DisableAccount,SignUpView,ActivateAccount,ProfileDetails,ProfileEdit
 
 app_name='user'
 
@@ -27,5 +27,8 @@ urlpatterns=[
     re_path(r'^disable/$',DisableAccount.as_view(),name='disable_account'),
     re_path(r'^signup/$',SignUpView.as_view(),name='signup'),
     path('activate/<uidb64>/<token>/',ActivateAccount.as_view(),name='activate_account'),
+    re_path('^(?P<username>[\w\-]+)/$',ProfileDetails.as_view(),name='profile_details'),
+    re_path(r'^(?P<username>[\w\-]+)/edit/$',ProfileEdit.as_view(),name='profile_edit')
+
 
 ]

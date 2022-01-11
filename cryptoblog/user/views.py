@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user,logout
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import redirect,render
+from django.shortcuts import redirect,render,get_object_or_404
 from django.template.response import TemplateResponse
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_protect
@@ -9,7 +9,7 @@ from django.conf import settings
 from django.urls import reverse_lazy
 from django.contrib.auth.models import User
 from .tokens import account_acctivation_token
-from .forms import SignUpForm
+from .forms import SignUpForm,ProfileForm
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.http import urlsafe_base64_encode,urlsafe_base64_decode
@@ -94,4 +94,40 @@ class ActivateAccount(View):
         else:
             messages.warning(request,'Confirmation link is no longer valid')
             return redirect('dj-auth:signup')
+
+
+
+class ProfileDetails(View):
+    '''Class to construct a view for profile details'''
+
+    model=Profile
+    template_name='user/profile_details.html'
+
+    def get(self,request,username):
+        profile=get_object_or_404(self.model,username=username)
+        return render(request,self.template_name,{'profile':profile})
+
+
+
+class ProfileEdit(View):
+    '''Class to construct a view for editing profile objects'''
+
+    model=Profile
+    form_class=ProfileForm
+    template_name='user/profile_update.html'
+
+    def get(self,request,username):
+        profile=get_object_or_404(self.model,username=username)
+        form=self.form_class(instance=profile)
+        return render(request,self.template_name,{'form':form})
+
+    def post(self,request,username):
+        profile=get_object_or_404(self.model,username=username)
+        bound_form=self.form_class(request.POST,instance=profile)
+        if bound_form.is_valid():
+            new_profile=bound_form.save()
+            return redirect(new_profile.get_absolute_url())
+
+        else:
+            return render(request,self.template_name,{'form':bound_form})
 
