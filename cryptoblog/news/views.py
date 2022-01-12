@@ -11,7 +11,7 @@ class NewsList(View):
 
     def get(self,request):
         news_list=self.model.objects.all()
-        paginator=Paginator(self.page_kwargs,self.paginated_by)
+        paginator=Paginator(news_list,self.paginated_by)
         page_number=request.GET.get(self.page_kwargs)
 
         try:

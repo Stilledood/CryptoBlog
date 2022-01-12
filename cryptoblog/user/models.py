@@ -16,6 +16,7 @@ class Profile(models.Model):
     facebook_profile=models.URLField(max_length=254)
     linkedin_profile=models.URLField(max_length=254)
     twitter_profile=models.URLField(max_length=254)
+    profile_image=models.ImageField(upload_to="{username}".format(username=username),blank=True)
 
 
     def __str__(self):

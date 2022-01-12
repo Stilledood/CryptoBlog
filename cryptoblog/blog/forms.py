@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post,Answer
+from .models import Post,Answer,Category
 from django.core.exceptions import ValidationError
 
 
@@ -8,7 +8,7 @@ class PostFrom(forms.ModelForm):
 
     class Meta:
         model=Post
-        fields=['title','body','tag','image']
+        fields=['title','body','tag','image','category']
 
     def clean_title(self):
         title=self.cleaned_data['title'].lower()
@@ -31,5 +31,10 @@ class CommentForm(forms.ModelForm):
 
 
 
+class CategoryForm(forms.ModelForm):
+    '''class to create category forms'''
 
+    class Meta:
+        model=Category
+        fields='__all__'
 

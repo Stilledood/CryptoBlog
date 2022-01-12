@@ -2,6 +2,18 @@ from django.db import models
 from django.shortcuts import reverse
 from taggit.managers import TaggableManager
 from django.conf import settings
+from django.contrib.auth.models import User
+
+
+class Category(models.Model):
+    '''class to construct a model for category objects'''
+
+    title = models.CharField(max_length=31)
+    slug = models.CharField(max_length=31)
+
+    def __str__(self):
+        return self.title
+
 
 
 class Post(models.Model):
@@ -12,6 +24,8 @@ class Post(models.Model):
     date_added=models.DateField(auto_now_add=True)
     tag=TaggableManager()
     image=models.ImageField(upload_to='blog_images')
+
+    category=models.ForeignKey(Category,on_delete=models.CASCADE)
 
 
 
@@ -45,6 +59,8 @@ class Answer(models.Model):
 
     date_added=models.DateField(auto_now_add=True)
     post=models.ForeignKey(Post,on_delete=models.CASCADE)
+    author=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+
 
     class Meta:
         ordering=('-date_added',)
@@ -57,6 +73,9 @@ class Answer(models.Model):
 
     def get_delete_url(self):
         return reverse('answer_delete',kwargs={'pk1':self.post.pk,'pk2':self.pk})
+
+
+
 
 
 

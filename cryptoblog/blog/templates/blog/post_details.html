@@ -25,8 +25,17 @@
     </div>
 </div>
 {% for answer in post.answer_set.all %}
+<div class="card mb-4">
 
-<p>{{answer.body}}</p>
+    <div class="card-body">
+
+        <div class="small text-muted"><h5>{{answer.author}}:</h5></div>
+        <br>
+        <div class="small text-muted">{{answer.body}}</div>
+    </div>
+</div>
+
+
 
 {% endfor %}
 <br>

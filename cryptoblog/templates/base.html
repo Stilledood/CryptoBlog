@@ -19,7 +19,7 @@
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#!">CoinBlog</a>
+                <a class="navbar-brand" href="{% url 'post_list' %}">CoinBlog</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarColor03">
                     <ul class="navbar-nav ms-auto mb-1 mb-lg-1">
@@ -57,6 +57,7 @@
             <div class="row">
                 <!-- Blog entries-->
                 <div class="col-lg-8">
+                    <a href="{% url 'category_create' %}">Add Category</a>
                     {% block content %}
                     {% endblock content %}
 
@@ -67,10 +68,12 @@
                     <div class="card mb-4">
                         <div class="card-header">Search</div>
                         <div class="card-body">
-                            <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
-                            </div>
+                            <form class="d-flex" method="post" action="{% url 'search' %}">
+                                {% csrf_token %}
+                                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search Post's" name="searched">
+                                <button type="submit">Search</button>
+                            </form>
+
                         </div>
                     </div>
                     <!-- Categories widget-->
@@ -80,17 +83,17 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="#!"><p class="text-primary">Bitcoin</p></a></li>
-                                        <li><a href="#!"><p class="text-primary"> Ethereum</p></a></li>
-                                        <li><a href="#!"><p class="text-primary">Other Coins</p></a></li>
-                                        <li><a href=""><p class="text-primary">NFT's</p></a></li>
+                                        <li><a href="{% url 'category_details' 'bitcoin'  %}"><p class="text-primary">Bitcoin</p></a></li>
+                                        <li><a href="{% url 'category_details' 'ethereum' %}"><p class="text-primary"> Ethereum</p></a></li>
+                                        <li><a href="{% url 'category_details' 'othercoins' %}"><p class="text-primary">Other Coins</p></a></li>
+                                        <li><a href="{% url 'category_details' 'nft' %}"><p class="text-primary">NFT's</p></a></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="#!"><p class="text-primary">DeFi</p></a></li>
-                                        <li><a href="#!"><p class="text-primary">New projects</p></a></li>
-                                        <li><a href="#!"><p class="text-primary">Market</p></a></li>
+                                        <li><a href="{% url 'category_details' 'defi' %}"><p class="text-primary">DeFi</p></a></li>
+                                        <li><a href="{% url 'category_details' 'newprojects' %}"><p class="text-primary">New projects</p></a></li>
+                                        <li><a href="{% url 'category_details' 'market' %}"><p class="text-primary">Market</p></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -98,8 +101,8 @@
                     </div>
                     <!-- Side widget-->
                     <div class="card mb-4">
-                        <div class="card-header">Side Widget</div>
-                        <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+                        <div class="card-header">Start Trading</div>
+                        <div class="card-body"><a href="http://binance.com/">Binance</a> </div>
                     </div>
                 </div>
             </div>
