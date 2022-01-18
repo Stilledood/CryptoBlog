@@ -17,6 +17,7 @@ class PostList(View):
     paginated_by=2
 
     def get(self,request):
+
         post_list=self.model.objects.all().order_by('-date_added')
         paginator=Paginator(post_list,self.paginated_by)
         page_number=request.GET.get(self.page_kwargs)
@@ -45,6 +46,7 @@ class PostList(View):
             'post_list':page
         }
 
+
         return render(request,self.template_name,context)
 
 
@@ -55,6 +57,8 @@ class PostDetails(View):
 
     model=Post
     template_name='blog/post_details.html'
+
+
 
     def get(self,request,pk):
         post=get_object_or_404(self.model,pk=pk)

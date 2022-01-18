@@ -15,6 +15,10 @@ class Category(models.Model):
         return self.title
 
 
+    def get_absolute_url(self):
+        return reverse('category_details',kwargs={'slug':self.slug})
+
+
 
 class Post(models.Model):
     '''Class to construc models for creating post objects'''
@@ -48,6 +52,20 @@ class Post(models.Model):
 
     def get_comment_url(self):
         return reverse('comment_create',kwargs={'pk':self.pk})
+
+    def format_title(self):
+        return self.title.title()
+
+    def short_text(self):
+        if len(self.body) > 20:
+            short=''.join(self.body.split()[:20])
+            short+='....'
+        else:
+            return self.body
+        return short
+
+
+
 
 
 

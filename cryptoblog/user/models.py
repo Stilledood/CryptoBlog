@@ -1,8 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,AbstractBaseUser,PermissionsMixin,BaseUserManager
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.shortcuts import reverse
+
+
 
 
 class Profile(models.Model):
@@ -16,7 +18,8 @@ class Profile(models.Model):
     facebook_profile=models.URLField(max_length=254)
     linkedin_profile=models.URLField(max_length=254)
     twitter_profile=models.URLField(max_length=254)
-    profile_image=models.ImageField(upload_to="{username}".format(username=username),blank=True)
+    profile_image=models.ImageField(upload_to='user_images',blank=True)
+
 
 
     def __str__(self):

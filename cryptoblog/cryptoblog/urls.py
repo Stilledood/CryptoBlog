@@ -21,6 +21,16 @@ from news import urls as news_urls
 from user import urls as user_urls
 from django.conf import settings
 from django.conf.urls.static import static
+import debug_toolbar
+from django.contrib.flatpages import views
+from blog.feeds import AtomPostFeed,RssPostFeed
+
+
+
+sitenews=[
+    re_path(r'^atom/$',AtomPostFeed(),name='posts_atom_feed'),
+    re_path(r'^rss/$',RssPostFeed(),name='posts_rss_feed')
+]
 
 
 urlpatterns = [
@@ -29,8 +39,21 @@ urlpatterns = [
     re_path(r'^blog/',include(blog_urls)),
     re_path(r'^news/',include(news_urls)),
     re_path(r'^user/',include(user_urls,namespace='dj-auth')),
+    re_path(r'about/',views.flatpage,{'url':'/about/'},name='about'),
+    re_path(r'^sitenews/',include(sitenews)),
+
 
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
 
+
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+    urlpatterns = [re_path(r'^debug/', include(debug_toolbar.urls)), ] + urlpatterns
+
+import mimetypes
+mimetypes.add_type("application/javascript", ".js", True)
+admin.site.site_header='CoinBlog Admin'
 
 

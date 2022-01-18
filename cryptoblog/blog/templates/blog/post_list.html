@@ -1,5 +1,6 @@
 {% extends parent_template|default:'blog/blog_base.html' %}
 {% block content %}
+<body>
 <div class="card mb-4">
     <h3>{{category.title|title}}</h3>
 </div>
@@ -8,7 +9,7 @@
 
 <div class="card mb-4">
     {% if post.image %}
-    <img class="card-img-top" src="{{post.image.url}}" alt="..." />
+    <img class="card-body profile-card pt-4 d-flex flex-column align-items-center" src="{{post.image.url}}" alt="..." />
     {% endif %}
     <div class="card-body">
         <div class="small text-muted">{{post.date_added|default:'F jS, Y'}}</div>
@@ -23,6 +24,11 @@
     <li class="breadcrumb-item">Date Added: {{post.date_added|default:'F jS, Y'}} </li>
 
 </ol>
+<br>
+<br>
+<br>
+<br>
+
 
 
 {% endfor %}
@@ -38,5 +44,6 @@
                             {% endif %}
                         </ul>
                     </nav>
+</body>
 
 {% endblock content %}
