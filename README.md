@@ -27,7 +27,8 @@ This is the web application made using Django. It is blogging site which enables
 
   - - - -
   
-  ** Feel free to contact me
+  ## Feel free to contact me
   * LinkedIn:[@Florin Corciova](https://www.linkedin.com/in/florin-corciova-0b1513120/) 
+  * EMail:[user@example.com](mailto:user@example.com)
 
   
