@@ -1,3 +1,4 @@
 # CryptoBlog
 A Django based Web Application
-![blog](https://user-images.githubusercontent.com/74854275/193274308-5737b974-1b07-4ee1-97ec-aa5ae2fe9c39.png)
+
+![blog](https://user-images.githubusercontent.com/74854275/193274955-e869329d-2017-4a66-8a00-f4c584768500.jpg)
