@@ -10,7 +10,7 @@ This is the web application made using Django. It is blogging site which enables
   - - - -
   
   ## Key Features
-  * Use of django-authentication for user login.
+  * Use of django-authentication for user login,password reset system,register new users.
   * User can create, read, update or delete their blogs.
   * Users can post comments on blogs.
   * Used Bootstrap Template in the frontend.
