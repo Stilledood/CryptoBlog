@@ -1,0 +1,1 @@
+web: gunicorn --phythonpath cryptoblog cryptoblog.wsgi:application
