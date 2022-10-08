@@ -1,1 +1,1 @@
-web: gunicorn --pythonpath portfolio portfolio.wsgi:application 
+web: gunicorn --pythonpath cryptoblog cryptoblog.wsgi:application 
