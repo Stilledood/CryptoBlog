@@ -1,0 +1,23 @@
+{% extends parent_template|default:'blog/blog_base.html' %}
+
+{% block content %}
+{% for post in post_list %}
+    <div class="card mb-4">
+        {% if post.image %}
+        <img class="card-img-top" src="{{post.image.url}}" alt="..." />
+        {% endif %}
+        <div class="card-body">
+            <div class="small text-muted">{{post.date_added|default:'F jS, Y'}}</div>
+            <h2 class="card-title">{{post.title|title}}</h2>
+            <p class="card-text">{{post.body|truncatewords:150}}</p>
+            <a class="btn " href="{{post.get_absolute_url}}">Read more →</a>
+        </div>
+    </div>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">Comments: {{post.answer_set.count}}</a></li>
+        <li class="breadcrumb-item">Category: {{post.category}} </li>
+        <li class="breadcrumb-item">Date Added: {{post.date_added|default:'F jS, Y'}} </li>
+
+    </ol>
+{% endfor %}
+{% endblock content %}

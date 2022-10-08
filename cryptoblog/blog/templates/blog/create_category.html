@@ -1,0 +1,10 @@
+{% extends parent_template|default:'user/base_user.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<form action="{% url 'category_create' %}"
+      method="post">
+    {% csrf_token %}
+    {{form|crispy}}
+    <button type="submit">Create Category</button>
+</form>
+{% endblock content %}
