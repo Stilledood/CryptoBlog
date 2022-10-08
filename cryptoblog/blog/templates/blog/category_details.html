@@ -1,0 +1,45 @@
+{% extends parent_template|default:'blog/blog_base.html' %}
+{% block content %}
+{% for post in post_list %}
+<div class="card mb-4">
+    {% if post.image %}
+    <img class="card-img-top" src="{{post.image.url}}" alt="..." /></a>
+    {% endif %}
+    <div class="card-body">
+        <div class="small text-muted">{{post.date_added|default:'F jS, Y'}}</div>
+        <h2 class="card-title">{{post.title|title}}</h2>
+        <p class="card-text">{{post.body|truncatewords:150}}</p>
+        <a class="btn btn-primary" href="{{post.get_absolute_url}}">Read more →</a>
+    </div>
+</div>
+
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">Comments: {{post.answer_set.count}}</a></li>
+    <li class="breadcrumb-item">Category: {{post.category}} </li>
+    <li class="breadcrumb-item">Date Added: {{post.date_added|default:'F jS, Y'}} </li>
+
+</ol>
+
+
+{% endfor %}
+                    <!-- Pagination-->
+                    <nav aria-label="Pagination">
+                        <hr class="my-0" />
+                        <ul class="pagination justify-content-center my-4">
+                            {% if previous_page_url %}
+                            <li class="page-item "><a class="page-link" href="{{previous_page_url}}" >Newer</a></li>
+                            {% endif %}
+                            {% if next_page_url %}
+                            <li class="page-item"><a class="page-link" href="{{next_page_url}}">Older</a></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+
+
+
+
+{% endblock content %}
+{% block footer %}
+<i class="bi bi-rss"> <a href="{% url 'posts_atom_feed' %}" class="feed">{{category.title}} Atom Feed</a></i>
+{% endblock footer %}
