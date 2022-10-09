@@ -1,0 +1,66 @@
+{% extends parent_template|default:'user/base_user.html' %}
+
+{% block content %}
+
+<section class="section profile">
+    <div class="row">
+        <div class="col-xl-4">
+            <div class="card">
+                <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
+                    {% if profile.image %}
+                    <img src="" alt="Profile" class="rounded-circle">
+                    {% endif %}
+                    <h2>{{profile.username}}</h2>
+                    <h5>{{profile.job}}</h5>
+
+                    <div class="social-links mt-3">
+                        {% if profile.twitter_profile %}
+                        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                        {% endif %}
+                        {% if profile.facebook_profile %}
+                        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                        {% endif %}
+                        {% if profile.linkedin_profile %}
+                        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8">
+            <div class="card">
+            <div class="card-body pt-3">
+              <!-- Bordered Tabs -->
+                <ul class="nav nav-tabs nav-tabs-bordered">
+                    <li class="nav-item">
+                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#profile-overview">Overview</button>
+                    </li>
+                </ul>
+                <div class="tab-content pt-2">
+                    <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                        <h5 class="card-title">About</h5>
+                        <p class="small fst-italic">{{profile.about}}</p>
+                        <h5 class="card-title">Profile Details</h5>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 label ">Name</div>
+                            <div class="col-lg-9 col-md-8">{{profile.name}}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 label">Username</div>
+                            <div class="col-lg-9 col-md-8">{{profile.username}}</div>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                </div><!-- End Bordered Tabs -->
+                {% if user.pk == profile.user.pk %}
+                    <button type="button" class="btn btn-outline-dark"><a href="{% url 'dj-auth:profile_edit' profile.username %}">Edit Profile</a> </button>   |   <button type="button" class="btn btn-outline-dark"><a href="{% url 'dj-auth:password_change' %}">Change Password</a> </button> | <button type="button" class="btn btn-outline-dark"><a href="{% url 'dj-auth:disable_account' %}">Delete Account</a> </button>
+                {% endif %}
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}
